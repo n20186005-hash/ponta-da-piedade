@@ -96,7 +96,7 @@ export default function Gallery() {
                   className="px-6 py-2.5 rounded-full text-sm font-medium transition-colors"
                   style={{ background: 'var(--bg-tertiary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}
                 >
-                  显示全部照片
+                  {t('showAllPhotos')}
                 </button>
               )}
               <a

@@ -31,7 +31,8 @@ export default function LanguageToggle() {
   function switchLocale(next: Locale) {
     setOpen(false);
     if (next === locale) return;
-    router.replace(pathname, { locale: next });
+    // For static export, use a hard navigation to ensure the locale is properly switched
+    window.location.href = `/${next}${pathname === '/' ? '' : pathname}`;
   }
 
   return (
