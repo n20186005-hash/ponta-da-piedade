@@ -10,14 +10,11 @@ export default function Gallery() {
   const captions = t.raw('captions') as string[];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [showAll, setShowAll] = useState(false);
 
   const photos = photoIndices.map((num, i) => ({
     src: `/gallery/ponta-da-piedade (${num}).jpg`,
     alt: captions?.[i] || `Ponta da Piedade ${num}`,
   }));
-
-  const visiblePhotos = showAll ? photos : photos.slice(0, 8);
 
   const goToPrevious = useCallback(() => {
     setCurrentIndex((prev) => (prev === 0 ? photos.length - 1 : prev - 1));
@@ -45,7 +42,7 @@ export default function Gallery() {
 
           <div className="relative">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-              {visiblePhotos.map((photo, i) => (
+              {photos.map((photo, i) => (
                 <div
                   key={i}
                   className={`gallery-item relative group cursor-pointer ${i === 0 ? 'col-span-2 row-span-2' : ''}`}
@@ -70,35 +67,7 @@ export default function Gallery() {
               ))}
             </div>
 
-            <button
-              onClick={goToPrevious}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-colors"
-              aria-label="Previous photo"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-            <button
-              onClick={goToNext}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-colors"
-              aria-label="Next photo"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
-
             <div className="flex flex-col items-center mt-8 gap-4">
-              {!showAll && (
-                <button
-                  onClick={() => setShowAll(true)}
-                  className="px-6 py-2.5 rounded-full text-sm font-medium transition-colors"
-                  style={{ background: 'var(--bg-tertiary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}
-                >
-                  {t('showAllPhotos')}
-                </button>
-              )}
               <a
                 href="https://maps.app.goo.gl/4bWc2hpYoZR4FZLS8"
                 target="_blank"
